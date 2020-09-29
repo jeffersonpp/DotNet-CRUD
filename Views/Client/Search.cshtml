@@ -1,0 +1,103 @@
+
+@model IEnumerable<Client.Models.mClient>
+
+@{
+    ViewData["Title"] = "Search";
+}
+@section Header{
+    
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1 posit" >
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Create">Client Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Search">Client Search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+}
+<h5>Client Search</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @* <form asp-controller="Client" asp-action="Search" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" >
+                <label class="control-label">Filter By Name:</label>
+                <input name="searchString" class="form-control" />
+            </div>
+            <div class="form-group">
+            </div>
+        </form> *@
+
+        <form asp-controller="Client" asp-action="Search" class="form-inline d-flex">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="searchString" class="form-control" type="text" maxlength="25" placeholder="Filter By Name" aria-label="Search">
+                <input type="submit" value="Search" class="searchButton" />
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created_At)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created_At)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Show" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,74 @@
+@model Client.Models.ModelView
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@section Header{
+    
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Work" asp-action="Index">Works</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1 posit" >
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Index">Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Create">Work Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Search">Work Search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+}
+<h5>Edit Work</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Work.Id" />
+            <div class="form-group">
+                <label asp-for="Work.Name" class="control-label">Name:</label>
+                <input asp-for="Work.Name" name="Name" class="form-control" />
+                <span asp-validation-for="Work.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Description" class="control-label">Description:</label>
+                <textarea asp-for="Work.Description" name="Description" class="form-control" maxlength="100" placeholder="Describe the job" style="resize:none !important;"></textarea>
+                <span asp-validation-for="Work.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Started_At" class="control-label">Job Date Start:</label>
+                <input asp-for="Work.Started_At" name="Started_At" type="date" class="form-control" />
+                <span asp-validation-for="Work.Started_At" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Price" class="control-label">Price:</label>
+                <input asp-for="Work.Price" name="Price" class="form-control" />
+                <span asp-validation-for="Work.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Client" class="control-label" >Client:</label>
+                    @Html.DropDownList("Client", Model.listClient, new {@class="form-control"} )
+                    @Html.ValidationMessageFor(model => model.listClient)
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

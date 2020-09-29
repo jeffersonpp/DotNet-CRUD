@@ -1,0 +1,71 @@
+@model Client.Models.ModelView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section Header{
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Work" asp-action="Index">Works</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1 posit" >
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Index">Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Create">Work Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Work" asp-action="Search">Work Search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+}
+<h5>Create Work</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Work.Name" class="control-label">Name:</label>
+                <input name="Name" class="form-control"  Placeholder="Important to the search!"/>
+                <span asp-validation-for="Work.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Description" class="control-label">Description:</label>
+                <textarea name="Description" class="form-control" maxlength="100" placeholder="Describe the job" style="resize:none !important;"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Work.Started_At" class="control-label">Date Job Start:</label>
+                <input type="date" name="Started_At" class="form-control" placeholder="Date of the Job"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work.Price" class="control-label">Price:</label>
+                <input pattern="^\d*(\.\d{0,2})?$" name="Price" class="form-control" />
+                <span asp-validation-for="Work.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label Name="Client" class="control-label" >Client:</label>
+                    @Html.DropDownList("Client", Model.listClient, new {@class="form-control"} )
+                    @Html.ValidationMessageFor(model => model.listClient)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
